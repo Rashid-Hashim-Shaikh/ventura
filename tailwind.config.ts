@@ -7,10 +7,19 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      screens: {
+        sm: '100%',
+        md: '720px', 
+        lg: '960px', 
+        xl: '1140px', 
+      },
+    },
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        
       },
     },
   },
