@@ -11,10 +11,6 @@ const Breadcrumb: React.FC = () => {
   // On home page do not display breadcrumb   
   if(!pathArray.length) return null
 
-  const convertBreadcrumb = (segment: string): string => {
-    return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
-  };
-
   return (
     <div aria-label="breadcrumb" className="container mx-auto text-sm text-gray-600">
       <ol className="inline-flex space-x-2">
@@ -31,10 +27,10 @@ const Breadcrumb: React.FC = () => {
             <li key={href} className="flex items-center space-x-1">
               <span>{">"}</span>
               {isLast ? (
-                <span className="text-gray-500">{convertBreadcrumb(segment)}</span>
+                <span className="text-gray-500 uppercase">{segment}</span>
               ) : (
-                <Link href={href} className="text-blue-600 hover:underline">
-                  {convertBreadcrumb(segment)}
+                <Link href={href} className="text-blue-600 hover:underline uppercase">
+                  {segment}
                 </Link>
               )}
             </li>
