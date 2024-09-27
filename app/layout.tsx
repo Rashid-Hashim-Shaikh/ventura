@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "Invest in IPOs (Initial Public Offering), Subscribe to IPOs Online | Ventura",
@@ -13,8 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+      <body className="container mx-auto"
       >
+        <Breadcrumb />
         {children}
       </body>
     </html>
