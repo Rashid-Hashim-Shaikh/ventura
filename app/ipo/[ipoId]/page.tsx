@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IPO } from "@/types";
 import { formatDateRange, formatDate } from "@/utils/helper";
 import arrowIcon from "@/public/assets/icons/arrow.svg";
 import downloadIcon from "@/public/assets/icons/download.svg";
-import Button from "@/components/Button";
-import Stepper from "@/components/Timeline"
+import Button from "@/components/ui/Button";
+import Stepper from "@/components/Stepper";
 import { getCurrentStep } from "@/utils/helper";
-import VerticleStepper from "@/components/VerticleStepper";
+import VerticalStepper from "@/components/VerticalStepper";
+import useIsMobile from "@/hooks/useIsMobileView";
+import Spinner from "@/components/ui/Spinner";
 
 export default function IpoDetailsPage({
   params,
@@ -18,6 +21,9 @@ export default function IpoDetailsPage({
 }) {
   const [ipo, setIpo] = useState<null | Required<IPO>>(null);
   const { ipoId } = params;
+
+  const router = useRouter();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (ipoId) {
@@ -29,7 +35,7 @@ export default function IpoDetailsPage({
   }, [ipoId]);
 
   if (!ipo) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   const {
@@ -53,13 +59,17 @@ export default function IpoDetailsPage({
   } = ipo;
 
   const timelineArray = [
-    { id: 1, label: 'Bidding starts', value: formatDate(bid_start_date) },
-    { id: 2, label: 'Bidding ends', value: formatDate(bid_end_date) },
-    { id: 3, label: 'Allotment finalization', value: formatDate(allot_final_date)},
-    { id: 4, label: 'Refund initiation', value: formatDate(refund_init_date) },
-    { id: 5, label: 'Demat transfer', value: formatDate(demat_transfer_date) },
-    { id: 6, label: 'Listing date', value: formatDate(list_date) },
-  ]  
+    { id: 1, label: "Bidding starts", value: formatDate(bid_start_date) },
+    { id: 2, label: "Bidding ends", value: formatDate(bid_end_date) },
+    {
+      id: 3,
+      label: "Allotment finalization",
+      value: formatDate(allot_final_date),
+    },
+    { id: 4, label: "Refund initiation", value: formatDate(refund_init_date) },
+    { id: 5, label: "Demat transfer", value: formatDate(demat_transfer_date) },
+    { id: 6, label: "Listing date", value: formatDate(list_date) },
+  ];
   // TODO: Handle null values and add color for listing gains
   return (
     <div className="mx-auto max-w-[1280px] space-y-6 pb-10 md:pb-20">
@@ -67,30 +77,27 @@ export default function IpoDetailsPage({
       <section className="flex justify-between items-center rounded-lg gap-2">
         {/* Company logo and Name */}
         <div className="flex flex-row gap-2">
-        {/* Back button  */}
-        <div
-          className="h-12 w-12 flex justify-center items-center border text-lg mr-4 cursor-pointer border-grey rounded-md"
-          // TODO: handle back functionality
-          // onClick={
-          //   // handle back functionality
-          // }
-        >
-          <Image src={arrowIcon} alt="back_arrow" />
-        </div>
+          {/* Back button  */}
+          <div
+            className="h-12 w-12 flex justify-center items-center border text-lg mr-2 sm:mr-4 cursor-pointer border-grey rounded-md"
+            onClick={() => router.back()}
+          >
+            <Image src={arrowIcon} alt="back_arrow" />
+          </div>
           <img
-            className="w-12 h-12 hidden sm:block rounded-full border border-grey"
+            className="w-12 h-12 block rounded-full border border-grey"
             src={company_logo}
             alt={company_logo}
           />
           <div>
-            <h5>SHort name</h5>
-            <p>full name</p>
+            {/* for now displaying the first word of company name, usually we get this from API */}
+            <h5 className=" font-bold">{company_name.split(" ")[0]}</h5>
+            <p>{company_name}</p>
           </div>
         </div>
 
         {/* Download ICON and apply button */}
-        {/* TODO: Remove in mobile view */}
-        <div className="flex gap-8 mr-4 cursor-pointer">
+        <div className="gap-8 mr-4 hidden sm:flex cursor-pointer">
           <Image
             src={downloadIcon}
             className="w-12 h-12 text-black"
@@ -134,7 +141,9 @@ export default function IpoDetailsPage({
           <div className="p-2">
             <p className="text-neutral text-xs font-semibold">Listed on</p>
             {listed_on_date ? (
-              <p className="font-semibold text-sm">{formatDate(listed_on_date)}</p>
+              <p className="font-semibold text-sm">
+                {formatDate(listed_on_date)}
+              </p>
             ) : (
               <p>-</p>
             )}
@@ -154,12 +163,21 @@ export default function IpoDetailsPage({
       {/* timeline section */}
       <section className="border border-grey rounded-2xl p-2 md:p-5 ">
         <h6 className="text-md font-bold mb-5">IPO Timeline</h6>
-        <Stepper 
-        steps={timelineArray}
-        currentStep={getCurrentStep(timelineArray)}
-        // Enable it to check the functionality 
-        // currentStep={(Math.random() * 6) + 1}
-        />
+        {isMobile ? (
+          <VerticalStepper
+            steps={timelineArray}
+            currentStep={getCurrentStep(timelineArray)}
+            // Enable it to check the functionality
+            // currentStep={Math.random() * 6 + 1}
+          />
+        ) : (
+          <Stepper
+            steps={timelineArray}
+            currentStep={getCurrentStep(timelineArray)}
+            // Enable it to check the functionality
+            // currentStep={Math.random() * 6 + 1}
+          />
+        )}
       </section>
 
       {/* description section */}

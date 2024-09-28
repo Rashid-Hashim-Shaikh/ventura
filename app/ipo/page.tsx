@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IPO } from "@/types";
+import { formatDateRange } from "@/utils/helper";
+import Spinner from "@/components/ui/Spinner";
 
 export default function IpoListPage() {
   const headerContent = [
@@ -21,10 +22,10 @@ export default function IpoListPage() {
       .then((data) => setIpoList(data));
   }, []);
 
-  if (!ipoList) return <p>Loading...</p>;
+  if (!ipoList) return <Spinner/>;
 
   return (
-    <div className="container mx-auto bg-white border border-grey text-xs sm:text-sm sm:rounded-2xl  overflow-hidden">
+    <div className="max-w-[1280px] mx-auto bg-white border border-grey text-xs sm:text-sm rounded-2xl overflow-hidden">
       {/* Header */}
       <div className="grid grid-cols-4 bg-[#F8F8F8]  w-full">
         {headerContent.map((item) => (
@@ -37,7 +38,7 @@ export default function IpoListPage() {
         ))}
       </div>
       {/* Content */}
-      {ipoList.map((ipo : IPO) => {
+      {ipoList.map((ipo: IPO) => {
         const {
           id,
           issue_date,
@@ -59,22 +60,22 @@ export default function IpoListPage() {
             {/* Icon, company, issue date  */}
             <div className=" text-center self-center first:text-left p-2 lg:p-5 ">
               <div className="flex items-center gap-2">
-                {/* TODO: Fix image for width < 900px */}
                 {/* Company logo */}
-                <div className="w-12 h-12 hidden md:block md:w-16 md:h-16 relative rounded-full border border-grey">
-                  <Image
-                    layout="fill"
-                    objectFit="contain"
-                    className="rounded-full w-full h-full p-0 lg:p-0.5"
-                    src={company_logo}
-                    alt={company_name}
-                  />
-                </div>
+                <img
+                  className="w-12 h-12 hidden sm:block rounded-full border border-grey"
+                  src={company_logo}
+                  alt={company_logo}
+                />
+
                 <div>
                   <span className="font-bold text-wrap">{company_name}</span>
-                  {/* TODO: Fix date format */}
                   <p className="text-secondary text-[10px] md:text-sm">
-                    {issue_date ? issue_date.start_date : "To be announced"}
+                    {issue_date
+                      ? formatDateRange(
+                          issue_date.start_date,
+                          issue_date.end_date
+                        )
+                      : "To be announced"}
                   </p>
                 </div>
               </div>
