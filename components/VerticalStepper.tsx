@@ -5,7 +5,7 @@ import { Timeline, StepperProps } from "@/types";
 
 const VerticalStepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
   return (
-    <div className="flex flex-col gap-5 sm:flex-row items-start justify-between w-full">
+    <div className="flex flex-col gap-5 sm:hidden items-start justify-between w-full">
       {steps.map((step, index) => (
         <div
           className="flex gap-2 items-start justify-center sm:flex-1 relative"

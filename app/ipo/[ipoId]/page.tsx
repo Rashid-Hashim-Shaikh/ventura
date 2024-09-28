@@ -11,7 +11,6 @@ import Button from "@/components/ui/Button";
 import Stepper from "@/components/Stepper";
 import { getCurrentStep } from "@/utils/helper";
 import VerticalStepper from "@/components/VerticalStepper";
-import useIsMobile from "@/hooks/useIsMobileView";
 import Spinner from "@/components/ui/Spinner";
 
 export default function IpoDetailsPage({
@@ -35,7 +34,11 @@ export default function IpoDetailsPage({
   }, [ipoId]);
 
   if (!ipo) {
-    return <Spinner />;
+    return (
+      <div className=" absolute -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 ">
+        <Spinner />
+      </div>
+    );
   }
 
   const {
@@ -163,21 +166,18 @@ export default function IpoDetailsPage({
       {/* timeline section */}
       <section className="border border-grey rounded-2xl p-2 md:p-5 ">
         <h6 className="text-md font-bold mb-5">IPO Timeline</h6>
-        {isMobile ? (
           <VerticalStepper
             steps={timelineArray}
             currentStep={getCurrentStep(timelineArray)}
             // Enable it to check the functionality
             // currentStep={Math.random() * 6 + 1}
           />
-        ) : (
           <Stepper
             steps={timelineArray}
             currentStep={getCurrentStep(timelineArray)}
             // Enable it to check the functionality
             // currentStep={Math.random() * 6 + 1}
           />
-        )}
       </section>
 
       {/* description section */}
