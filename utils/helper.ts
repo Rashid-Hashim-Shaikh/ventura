@@ -1,4 +1,4 @@
-import { isAfter, isBefore, isEqual, parse, format } from 'date-fns';
+import { isBefore, isEqual, parse, format } from 'date-fns';
 
 // Function to format date range
 export const formatDateRange = (startDate: string, endDate: string) => {
