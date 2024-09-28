@@ -21,7 +21,8 @@ const config: Config = {
         foreground: "var(--foreground)",
         secondary: "#6B6874",
         grey: "#e0dfe7",
-        neutral: "#6b6874"
+        neutral: "#6b6874",
+        black: "#191442"
       },
     },
   },
