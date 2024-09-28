@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { IPO } from "@/types";
 
 export default function IpoListPage() {
   const headerContent = [
@@ -12,7 +13,7 @@ export default function IpoListPage() {
     { id: 4, title: "Min Invest/qty" },
   ];
 
-  const [ipoList, setIpoList] = useState(null);
+  const [ipoList, setIpoList] = useState<null | IPO[]>(null);
 
   useEffect(() => {
     fetch("/api/ipo")
@@ -23,20 +24,20 @@ export default function IpoListPage() {
   if (!ipoList) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto bg-white border border-[#e0dfe7] text-xs sm:text-sm sm:rounded-2xl  overflow-hidden">
+    <div className="container mx-auto bg-white border border-grey text-xs sm:text-sm sm:rounded-2xl  overflow-hidden">
       {/* Header */}
       <div className="grid grid-cols-4 bg-[#F8F8F8]  w-full">
         {headerContent.map((item) => (
           <div
             key={item.id}
-            className="text-[#6B6874]  text-center first:text-left p-2 lg:p-5"
+            className="text-secondary  text-center first:text-left p-2 lg:p-5"
           >
             {item.title}
           </div>
         ))}
       </div>
       {/* Content */}
-      {ipoList.map((ipo) => {
+      {ipoList.map((ipo : IPO) => {
         const {
           id,
           issue_date,
@@ -60,7 +61,7 @@ export default function IpoListPage() {
               <div className="flex items-center gap-2">
                 {/* TODO: Fix image for width < 900px */}
                 {/* Company logo */}
-                <div className="w-12 h-12 hidden md:block md:w-16 md:h-16 relative rounded-full border border-[#d2cece]">
+                <div className="w-12 h-12 hidden md:block md:w-16 md:h-16 relative rounded-full border border-grey">
                   <Image
                     layout="fill"
                     objectFit="contain"
@@ -72,7 +73,7 @@ export default function IpoListPage() {
                 <div>
                   <span className="font-bold text-wrap">{company_name}</span>
                   {/* TODO: Fix date format */}
-                  <p className="text-[#6B6874] text-[10px] md:text-sm">
+                  <p className="text-secondary text-[10px] md:text-sm">
                     {issue_date ? issue_date.start_date : "To be announced"}
                   </p>
                 </div>
@@ -90,7 +91,7 @@ export default function IpoListPage() {
             {/* min investment/ qty */}
             <div className="flex flex-col text-center self-center p-2 lg:p-5">
               <p className="font-bold">&#8377; {min_invest}</p>
-              <p className="text-[#6B6874] text-[10px] md:text-sm">
+              <p className="text-secondary text-[10px] md:text-sm">
                 <span>{shares} shares</span>/{lot} Lots
               </p>
             </div>
