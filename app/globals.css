@@ -16,8 +16,13 @@
   }
 }
 
-body {
+*, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Sora', sans-serif;
+  color: #191442;
+  background-color: #fff,
 }
 
 @layer utilities {
