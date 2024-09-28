@@ -15,7 +15,7 @@ const Breadcrumb: React.FC = () => {
     <div aria-label="breadcrumb" className="mx-auto max-w-[1280px] relative  flex w-full  py-6 bg-primary-50/95 container text-sm text-gray-600">
       <ol className="inline-flex space-x-2">
         <li>
-          <Link href="/" className="text-black hover:underline">
+          <Link href="/" className="text-blue-600 hover:underline">
             Home
           </Link>
         </li>
