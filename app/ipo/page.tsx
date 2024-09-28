@@ -22,7 +22,13 @@ export default function IpoListPage() {
       .then((data) => setIpoList(data));
   }, []);
 
-  if (!ipoList) return <Spinner/>;
+  if (!ipoList) {
+    return (
+      <div className=" absolute -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 ">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-[1280px] mx-auto bg-white border border-grey text-xs sm:text-sm rounded-2xl overflow-hidden">

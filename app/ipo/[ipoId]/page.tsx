@@ -22,7 +22,6 @@ export default function IpoDetailsPage({
   const { ipoId } = params;
 
   const router = useRouter();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (ipoId) {
@@ -73,7 +72,6 @@ export default function IpoDetailsPage({
     { id: 5, label: "Demat transfer", value: formatDate(demat_transfer_date) },
     { id: 6, label: "Listing date", value: formatDate(list_date) },
   ];
-  // TODO: Handle null values and add color for listing gains
   return (
     <div className="mx-auto max-w-[1280px] space-y-6 pb-10 md:pb-20">
       {/* logo and company name section */}
