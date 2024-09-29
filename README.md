@@ -1,17 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ventura IPO Listing Web App
+
+
+This is a [Next.js](https://nextjs.org) project built with the App Router directory structure. The project uses Tailwind CSS for styling and date-fns for handling date manipulations.
+
+## Hosted App 
+You can view the live app here: [App](https://ventura-assignment.vercel.app/)
+
+### Tech Stack 
+
+1. Next JS (Good for SEO)
+2. Tailwind CSS
+3. date-fns (A light weight library for dates)
+4. Typescript
+
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install 
+yarn dev // run locally
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
