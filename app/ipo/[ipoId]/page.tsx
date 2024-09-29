@@ -7,11 +7,13 @@ import { IPO } from "@/types";
 import { formatDateRange, formatDate } from "@/utils/helper";
 import arrowIcon from "@/public/assets/icons/arrow.svg";
 import downloadIcon from "@/public/assets/icons/download.svg";
+
 import Button from "@/components/ui/Button";
 import Stepper from "@/components/Stepper";
-import { getCurrentStep } from "@/utils/helper";
 import VerticalStepper from "@/components/VerticalStepper";
 import Spinner from "@/components/ui/Spinner";
+
+import { getCurrentStep } from "@/utils/helper";
 
 export default function IpoDetailsPage({
   params,
@@ -58,19 +60,19 @@ export default function IpoDetailsPage({
     refund_init_date,
     demat_transfer_date,
     list_date,
-  } = ipo;
+  } = ipo as NonNullable<IPO>;
 
   const timelineArray = [
-    { id: 1, label: "Bidding starts", value: formatDate(bid_start_date) },
-    { id: 2, label: "Bidding ends", value: formatDate(bid_end_date) },
+    { id: 1, label: "Bidding starts", value: formatDate(bid_start_date as string)},
+    { id: 2, label: "Bidding ends", value: formatDate(bid_end_date as string) },
     {
       id: 3,
       label: "Allotment finalization",
-      value: formatDate(allot_final_date),
+      value: formatDate(allot_final_date as string),
     },
-    { id: 4, label: "Refund initiation", value: formatDate(refund_init_date) },
-    { id: 5, label: "Demat transfer", value: formatDate(demat_transfer_date) },
-    { id: 6, label: "Listing date", value: formatDate(list_date) },
+    { id: 4, label: "Refund initiation", value: formatDate(refund_init_date as string) },
+    { id: 5, label: "Demat transfer", value: formatDate(demat_transfer_date as string) },
+    { id: 6, label: "Listing date", value: formatDate(list_date as string) },
   ];
   return (
     <div className="mx-auto max-w-[1280px] space-y-6 pb-10 md:pb-20">
