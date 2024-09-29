@@ -1,4 +1,5 @@
 import { isBefore, isEqual, parse, format } from 'date-fns';
+import { Timeline } from '@/types';
 
 // Function to format date range
 export const formatDateRange = (startDate: string, endDate: string) => {
@@ -26,7 +27,7 @@ export const formatDate = (input: string) => {
 }
 
 // Get current step id
-export const getCurrentStep = (timelines) => {
+export const getCurrentStep = (timelines: Timeline[]) => {
   let stepId = 0;
   const currentDate = new Date();
 

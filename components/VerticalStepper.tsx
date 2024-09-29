@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Timeline, StepperProps } from "@/types";
+import { StepperProps } from "@/types";
 
 const VerticalStepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
   return (
